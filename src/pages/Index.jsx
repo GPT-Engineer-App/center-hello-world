@@ -6,8 +6,6 @@ import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components
 import { FiFilter } from "react-icons/fi";
 import { BsSortUpAlt } from "react-icons/bs";
 import { fetchAllRowsFromTable } from "@/lib/supabaseOperations";
-
-import Empfangen from "./components/ui/empfangen";
 import Kontiert from "./components/ui/kontiert.tsx";
 
 const Index = () => {
