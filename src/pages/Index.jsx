@@ -1,3 +1,4 @@
+import Empfangen from "@/components/ui/empfangen";
 import Ubertragen from "@/components/ui/ubertragen";
 import "../index.css";
 import { useEffect, useState } from "react";
