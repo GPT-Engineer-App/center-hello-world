@@ -3,6 +3,15 @@ import { useQuery, useMutation, useQueryClient, QueryClient, QueryClientProvider
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_PROJECT_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_API_KEY;
+
+if (!supabaseUrl) {
+    throw new Error("supabaseUrl is required.");
+}
+
+if (!supabaseKey) {
+    throw new Error("supabaseKey is required.");
+}
+
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
 import React from "react";
@@ -16,95 +25,6 @@ const fromSupabase = async (query) => {
     if (error) throw new Error(error.message);
     return data;
 };
-
-/* supabase integration types
-
-### life_cycle_done
-
-| name                  | type        | format | required |
-|-----------------------|-------------|--------|----------|
-| created_at            | timestamptz | string | true     |
-| state                 | varchar     | string | false    |
-| call_started          | timestamp   | string | true     |
-| phone_num             | varchar     | string | true     |
-| subject_line          | text        | string | false    |
-| summary               | text        | string | false    |
-| call_uuid             | varchar     | string | true     |
-| form_submitted        | boolean     | boolean| true     |
-| ticket_id             | varchar     | string | false    |
-| initials              | varchar     | string | false    |
-| key_data_full         | text        | string | false    |
-| state_update_message  | text        | string | false    |
-| duration              | smallint    | number | false    |
-| cost_in_usd           | text        | string | false    |
-| transcription         | text        | string | false    |
-
-### aircall_summary
-
-| name                  | type        | format | required |
-|-----------------------|-------------|--------|----------|
-| created_at            | timestamptz | string | true     |
-| state                 | varchar     | string | false    |
-| call_started          | timestamp   | string | true     |
-| phone_num             | varchar     | string | true     |
-| subject_line          | text        | string | false    |
-| summary               | text        | string | false    |
-| call_uuid             | varchar     | string | true     |
-| form_submitted        | boolean     | boolean| true     |
-| ticket_id             | varchar     | string | false    |
-| initials              | varchar     | string | false    |
-| key_data_full         | text        | string | false    |
-| state_update_message  | text        | string | false    |
-| duration              | smallint    | number | false    |
-| cost_in_usd           | text        | string | false    |
-| transcription         | text        | string | false    |
-
-### invoices_dev
-
-| name                  | type        | format | required |
-|-----------------------|-------------|--------|----------|
-| id                    | text        | string | true     |
-| created_at            | timestamptz | string | true     |
-| eingegangen_am        | timestamptz | string | true     |
-| konto                 | text        | string | false    |
-| ev_vp                 | text        | string | false    |
-| belegtext             | text        | string | false    |
-| kommentar             | text        | string | false    |
-| fällig_am             | date        | string | false    |
-| gebucht               | date        | string | false    |
-| kostenstelle          | text        | string | false    |
-| VB                    | text        | string | false    |
-| wer_geprüft           | text        | string | false    |
-| wer_bezahlt           | text        | string | false    |
-| status                | text        | string | true     |
-| amount                | real        | number | false    |
-| sender                | text[]      | array  | false    |
-| email_body            | text        | string | false    |
-| public_url            | text        | string | false    |
-| faellig_am            | timestamptz | string | false    |
-| skonto                | smallint    | number | false    |
-
-### aircall_summary_dev
-
-| name                  | type        | format | required |
-|-----------------------|-------------|--------|----------|
-| created_at            | timestamptz | string | true     |
-| state                 | varchar     | string | false    |
-| call_started          | timestamp   | string | true     |
-| phone_num             | varchar     | string | true     |
-| subject_line          | text        | string | false    |
-| summary               | text        | string | false    |
-| call_uuid             | varchar     | string | true     |
-| form_submitted        | boolean     | boolean| true     |
-| ticket_id             | varchar     | string | false    |
-| initials              | varchar     | string | false    |
-| key_data_full         | text        | string | false    |
-| state_update_message  | text        | string | false    |
-| duration              | smallint    | number | false    |
-| cost_in_usd           | text        | string | false    |
-| transcription         | text        | string | false    |
-
-*/
 
 // Hooks for life_cycle_done
 export const useLifeCycleDone = () => useQuery({
