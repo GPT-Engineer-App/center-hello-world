@@ -6,10 +6,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./components/ui/table";
+} from "@/components/ui/table";
 import { FiFilter } from "react-icons/fi";
 import { BsSortUpAlt } from "react-icons/bs";
-import { fetchAllRowsFromTable } from "./lib/supabaseOperations";
+import { fetchAllRowsFromTable } from "@/lib/supabaseOperations";
 
 import Ubertragen from "./components/ui/ubertragen";
 import Empfangen from "./components/ui/empfangen";
