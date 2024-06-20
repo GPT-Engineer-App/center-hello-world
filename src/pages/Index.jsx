@@ -1,12 +1,6 @@
 import "../index.css";
 import { useEffect, useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "./components/ui/table";
+import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { FiFilter } from "react-icons/fi";
 import { BsSortUpAlt } from "react-icons/bs";
 import { fetchAllRowsFromTable } from "./lib/supabaseOperations";
