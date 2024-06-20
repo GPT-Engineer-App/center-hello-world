@@ -14,7 +14,7 @@ import Empfangen from "./components/ui/empfangen";
 import Kontiert from "./components/ui/kontiert.tsx";
 import { FiFilter } from "react-icons/fi";
 import { BsSortUpAlt } from "react-icons/bs";
-import { fetchAllRowsFromTable } from "./lib/supabaseOperations";
+import { fetchAllRowsFromTable } from "../src/lib/supabaseOperations";
 import { Invoice } from "./interfaces/invoice.ts";
 
 function App() {
