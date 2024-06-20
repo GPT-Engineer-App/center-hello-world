@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./components/ui/table";
+} from "@/components/ui/table";
 import { FiFilter } from "react-icons/fi";
 import { BsSortUpAlt } from "react-icons/bs";
 import { fetchAllRowsFromTable } from "./lib/supabaseOperations";
