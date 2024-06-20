@@ -12,7 +12,7 @@ import { BsSortUpAlt } from "react-icons/bs";
 import { fetchAllRowsFromTable } from "./lib/supabaseOperations";
 
 import Ubertragen from "./components/ui/ubertragen";
-import Empfangen from "./components/ui/empfangen";
+import Empfangen from "@/components/ui/empfangen";
 import Kontiert from "./components/ui/kontiert.tsx";
 
 
