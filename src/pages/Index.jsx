@@ -6,14 +6,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./components/ui/table";
+} from "@/components/ui/table"; // Corrected import path
 import { FiFilter } from "react-icons/fi";
 import { BsSortUpAlt } from "react-icons/bs";
-import { fetchAllRowsFromTable } from "./lib/supabaseOperations";
+import { supabase } from "../lib/supabaseClient"; // Directly import the Supabase client
 
-import Ubertragen from "./components/ui/ubertragen";
-import Empfangen from "./components/ui/empfangen";
-import Kontiert from "./components/ui/kontiert.tsx";
+import Ubertragen from "@/components/ui/ubertragen";
+import Empfangen from "@/components/ui/empfangen";
+import Kontiert from "@/components/ui/kontiert.tsx";
 
 
 
@@ -23,8 +23,12 @@ const Index = () => {
 
   useEffect(() => {
     const fetchAllRows = async () => {
-      const data = await fetchAllRowsFromTable("invoices_dev");
-      data ? setInvoices(data) : console.log("No data found");
+      const { data, error } = await supabase.from("invoices_dev").select("*");
+      if (error) {
+        console.error("Data fetch error: ", error);
+        return;
+      }
+      setInvoices(data);
     };
 
     fetchAllRows();
