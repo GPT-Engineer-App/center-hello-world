@@ -6,7 +6,7 @@ import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components
 import { FiFilter } from "react-icons/fi";
 import { BsSortUpAlt } from "react-icons/bs";
 import { fetchAllRowsFromTable } from "@/lib/supabaseOperations";
-import Kontiert from "./components/ui/kontiert.tsx";
+import Kontiert from "@/components/ui/kontiert";
 
 const Index = () => {
   const [invoice, setInvoices] = useState([]);
