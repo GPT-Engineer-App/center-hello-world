@@ -1,22 +1,24 @@
-import "../index.css";
+import "./App.css";
 import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
+  // TableCaption,
   TableHead,
   TableHeader,
   TableRow,
 } from "./components/ui/table";
-import { FiFilter } from "react-icons/fi";
-import { BsSortUpAlt } from "react-icons/bs";
-import { fetchAllRowsFromTable } from "./lib/supabaseOperations";
 
 import Ubertragen from "./components/ui/ubertragen";
 import Empfangen from "./components/ui/empfangen";
 import Kontiert from "./components/ui/kontiert.tsx";
+import { FiFilter } from "react-icons/fi";
+import { BsSortUpAlt } from "react-icons/bs";
+import { fetchAllRowsFromTable } from "./lib/supabaseOperations";
+import { Invoice } from "./interfaces/invoice.ts";
 
-const Index = () => {
-  const [invoice, setInvoices] = useState([]);
+function App() {
+  const [invoice, setInvoices] = useState<Invoice[]>([]);
 
   useEffect(() => {
     const fetchAllRows = async () => {
@@ -73,6 +75,6 @@ const Index = () => {
       </Table>
     </>
   );
-};
+}
 
-export default Index;
+export default App;
