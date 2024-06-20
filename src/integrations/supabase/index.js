@@ -19,53 +19,221 @@ const fromSupabase = async (query) => {
 
 /* supabase integration types
 
-// EXAMPLE TYPES SECTION
-// DO NOT USE TYPESCRIPT
+### life_cycle_done
 
-### foos
+| name                  | type        | format | required |
+|-----------------------|-------------|--------|----------|
+| created_at            | timestamptz | string | true     |
+| state                 | varchar     | string | false    |
+| call_started          | timestamp   | string | true     |
+| phone_num             | varchar     | string | true     |
+| subject_line          | text        | string | false    |
+| summary               | text        | string | false    |
+| call_uuid             | varchar     | string | true     |
+| form_submitted        | boolean     | boolean| true     |
+| ticket_id             | varchar     | string | false    |
+| initials              | varchar     | string | false    |
+| key_data_full         | text        | string | false    |
+| state_update_message  | text        | string | false    |
+| duration              | smallint    | number | false    |
+| cost_in_usd           | text        | string | false    |
+| transcription         | text        | string | false    |
 
-| name    | type | format | required |
-|---------|------|--------|----------|
-| id      | int8 | number | true     |
-| title   | text | string | true     |
-| date    | date | string | true     |
+### aircall_summary
 
-### bars
+| name                  | type        | format | required |
+|-----------------------|-------------|--------|----------|
+| created_at            | timestamptz | string | true     |
+| state                 | varchar     | string | false    |
+| call_started          | timestamp   | string | true     |
+| phone_num             | varchar     | string | true     |
+| subject_line          | text        | string | false    |
+| summary               | text        | string | false    |
+| call_uuid             | varchar     | string | true     |
+| form_submitted        | boolean     | boolean| true     |
+| ticket_id             | varchar     | string | false    |
+| initials              | varchar     | string | false    |
+| key_data_full         | text        | string | false    |
+| state_update_message  | text        | string | false    |
+| duration              | smallint    | number | false    |
+| cost_in_usd           | text        | string | false    |
+| transcription         | text        | string | false    |
 
-| name    | type | format | required |
-|---------|------|--------|----------|
-| id      | int8 | number | true     |
-| foo_id  | int8 | number | true     |  // foreign key to foos
-	
+### invoices_dev
+
+| name                  | type        | format | required |
+|-----------------------|-------------|--------|----------|
+| id                    | text        | string | true     |
+| created_at            | timestamptz | string | true     |
+| eingegangen_am        | timestamptz | string | true     |
+| konto                 | text        | string | false    |
+| ev_vp                 | text        | string | false    |
+| belegtext             | text        | string | false    |
+| kommentar             | text        | string | false    |
+| fällig_am             | date        | string | false    |
+| gebucht               | date        | string | false    |
+| kostenstelle          | text        | string | false    |
+| VB                    | text        | string | false    |
+| wer_geprüft           | text        | string | false    |
+| wer_bezahlt           | text        | string | false    |
+| status                | text        | string | true     |
+| amount                | real        | number | false    |
+| sender                | text[]      | array  | false    |
+| email_body            | text        | string | false    |
+| public_url            | text        | string | false    |
+| faellig_am            | timestamptz | string | false    |
+| skonto                | smallint    | number | false    |
+
+### aircall_summary_dev
+
+| name                  | type        | format | required |
+|-----------------------|-------------|--------|----------|
+| created_at            | timestamptz | string | true     |
+| state                 | varchar     | string | false    |
+| call_started          | timestamp   | string | true     |
+| phone_num             | varchar     | string | true     |
+| subject_line          | text        | string | false    |
+| summary               | text        | string | false    |
+| call_uuid             | varchar     | string | true     |
+| form_submitted        | boolean     | boolean| true     |
+| ticket_id             | varchar     | string | false    |
+| initials              | varchar     | string | false    |
+| key_data_full         | text        | string | false    |
+| state_update_message  | text        | string | false    |
+| duration              | smallint    | number | false    |
+| cost_in_usd           | text        | string | false    |
+| transcription         | text        | string | false    |
+
 */
 
-// Example hook for models
-
-export const useFoo = ()=> useQuery({
-    queryKey: ['foos'],
-    queryFn: fromSupabase(supabase.from('foos')),
-})
-export const useAddFoo = () => {
+// Hooks for life_cycle_done
+export const useLifeCycleDone = () => useQuery({
+    queryKey: ['life_cycle_done'],
+    queryFn: () => fromSupabase(supabase.from('life_cycle_done').select('*')),
+});
+export const useAddLifeCycleDone = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (newFoo)=> fromSupabase(supabase.from('foos').insert([{ title: newFoo.title }])),
-        onSuccess: ()=> {
-            queryClient.invalidateQueries('foos');
+        mutationFn: (newData) => fromSupabase(supabase.from('life_cycle_done').insert([newData])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('life_cycle_done');
+        },
+    });
+};
+export const useUpdateLifeCycleDone = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedData) => fromSupabase(supabase.from('life_cycle_done').update(updatedData).eq('id', updatedData.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('life_cycle_done');
+        },
+    });
+};
+export const useDeleteLifeCycleDone = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('life_cycle_done').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('life_cycle_done');
         },
     });
 };
 
-export const useBar = ()=> useQuery({
-    queryKey: ['bars'],
-    queryFn: fromSupabase(supabase.from('bars')),
-})
-export const useAddBar = () => {
+// Hooks for aircall_summary
+export const useAircallSummary = () => useQuery({
+    queryKey: ['aircall_summary'],
+    queryFn: () => fromSupabase(supabase.from('aircall_summary').select('*')),
+});
+export const useAddAircallSummary = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (newBar)=> fromSupabase(supabase.from('bars').insert([{ foo_id: newBar.foo_id }])),
-        onSuccess: ()=> {
-            queryClient.invalidateQueries('bars');
+        mutationFn: (newData) => fromSupabase(supabase.from('aircall_summary').insert([newData])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('aircall_summary');
+        },
+    });
+};
+export const useUpdateAircallSummary = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedData) => fromSupabase(supabase.from('aircall_summary').update(updatedData).eq('id', updatedData.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('aircall_summary');
+        },
+    });
+};
+export const useDeleteAircallSummary = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('aircall_summary').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('aircall_summary');
         },
     });
 };
 
+// Hooks for invoices_dev
+export const useInvoicesDev = () => useQuery({
+    queryKey: ['invoices_dev'],
+    queryFn: () => fromSupabase(supabase.from('invoices_dev').select('*')),
+});
+export const useAddInvoicesDev = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newData) => fromSupabase(supabase.from('invoices_dev').insert([newData])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('invoices_dev');
+        },
+    });
+};
+export const useUpdateInvoicesDev = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedData) => fromSupabase(supabase.from('invoices_dev').update(updatedData).eq('id', updatedData.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('invoices_dev');
+        },
+    });
+};
+export const useDeleteInvoicesDev = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('invoices_dev').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('invoices_dev');
+        },
+    });
+};
+
+// Hooks for aircall_summary_dev
+export const useAircallSummaryDev = () => useQuery({
+    queryKey: ['aircall_summary_dev'],
+    queryFn: () => fromSupabase(supabase.from('aircall_summary_dev').select('*')),
+});
+export const useAddAircallSummaryDev = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newData) => fromSupabase(supabase.from('aircall_summary_dev').insert([newData])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('aircall_summary_dev');
+        },
+    });
+};
+export const useUpdateAircallSummaryDev = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedData) => fromSupabase(supabase.from('aircall_summary_dev').update(updatedData).eq('id', updatedData.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('aircall_summary_dev');
+        },
+    });
+};
+export const useDeleteAircallSummaryDev = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('aircall_summary_dev').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('aircall_summary_dev');
+        },
+    });
+};
